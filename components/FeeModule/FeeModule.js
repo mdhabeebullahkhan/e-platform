@@ -7,7 +7,7 @@ const FeeModule = () => {
         <div>
             <Link href={`../students`}>
                 <div className="card">
-                    {/* <img className="card-img-top" src="/fee.png" /> */}
+                    {/* <img className="card-img-top" src="/fee.pngsss" /> */}
                     <div className="card-body">
                         <img width="60px" src="/hand.png" />
                         <h6 className="card-title text-capitalize">
