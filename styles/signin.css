@@ -1,0 +1,22 @@
+.backGroundImage{
+    background: url("../public/signin/school.jpg")  no-repeat;
+    background-size:100%;
+    background-position:top;
+    background: cover;
+     min-height: 100vh;
+  /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 350px;
+  /* height of your footer */
+  background-color: #f1f7f8;
+    
+}
+
+@media (max-width: 768px) {
+    .backGroundImage{
+        background: none;
+        padding-bottom: 650px;
+       }
+}
