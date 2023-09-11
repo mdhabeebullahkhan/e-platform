@@ -36,14 +36,9 @@ function NavBar() {
     const adminRouter = () => {
         return (
             <>
-                <Link href="/users">
-                    <a className="dropdown-item">Users</a>
-                </Link>
-                <Link href="/create">
-                    <a className="dropdown-item">Add Product
-                    </a>
-                </Link>
-                
+                <Link href="/users" className="dropdown-item">Users</Link>
+                <Link href="/create" className="dropdown-item">Add Product</Link>
+
             </>
         )
     }
@@ -60,9 +55,7 @@ function NavBar() {
                 </a>
 
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <Link href="/profile">
-                        <a className="dropdown-item">Profile</a>
-                    </Link>
+                    <Link href="/profile" className="dropdown-item">Profile</Link>
                     {
                         auth.user.role === 'admin' && adminRouter()
                     }
@@ -91,12 +84,12 @@ function NavBar() {
             <Link href="/">
                 <div className="d-flex align-items-end mb-0" style={{ cursor: 'pointer' }}>
                     {/* <img src="/assets/images/icon/KFM_Logo_Small_Black.svg" alt="KFM Enterprises" /> */}
-                    
+
                     <i className="fas fa-school position-relative cart-logo" aria-hidden="true"></i>
                     <h4 className='company-logo'> SMS</h4>
                 </div>
             </Link>
-            { isEmpty(auth) ? '' : <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            {isEmpty(auth) ? '' : <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span></button>}
             <div className="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                 {accountActivated === false &&
@@ -105,15 +98,15 @@ function NavBar() {
 
                 <ul className="navbar-nav p-1">
                     {
-                         isEmpty(auth)
-                         ? '' :
-                        <li className="nav-item" >
-                        <Link href="/">
-                            <a className={"nav-link" + isActive('/')}>
-                                <i className="fas fa-home" aria-hidden="true" ></i> Home
-                            </a>
-                        </Link>
-                    </li>}
+                        isEmpty(auth)
+                            ? '' :
+                            <li className="nav-item" >
+                                <Link href="/" className={"nav-link" + isActive('/')}>
+                                    
+                                        <i className="fas fa-home" aria-hidden="true" ></i> Home
+                                    
+                                </Link>
+                            </li>}
                     {/* <li className="nav-item" style={{ display: `${isAdmin ? 'none' : 'block'}` }}>
                         <Link href="/cart">
                             <a className={"nav-link" + isActive('/cart')}>

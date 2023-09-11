@@ -44,7 +44,7 @@ const Students = () => {
   return (
     <div className="container">
       <div className='app-header'><h2>Students Information</h2></div>
-      {isAdmin && <Link href={`/create`}><a className="btn btn-success" style={{ float: 'right', margin: '0 0 1% 0' }}>Add New Student</a></Link>}
+      {isAdmin && <Link href={`/create`} className="btn btn-success" style={{ float: 'right', margin: '0 0 1% 0' }}>Add New Student</Link>}
       <div style={{ display: 'flex' }}>
         <div><input type="text" name="studentName" className="form-control" placeholder='Search by student name' onChange={(e) => { setSearchByStudName(e.target.value) }} maxLength='25' required /></div>
         <div><input type="text" name="fatherName" className="form-control" placeholder='Search by father name' onChange={(e) => { setSearchByFatherName(e.target.value) }} maxLength='25' required /></div>
