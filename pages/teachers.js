@@ -48,7 +48,7 @@ const teachers = () => {
   return (
     <div className="container">
       <h2 style={{ marginTop: '3%' }}>Teachers Information</h2>
-      {isAdmin && <Link href={`/create/teacher`}><a className="btn btn-success" style={{ float: 'right', margin: '0 0 1% 0' }}>Add New Teacher</a></Link>
+      {isAdmin && <Link href={`/create/teacher`}  className="btn btn-success" style={{ float: 'right', margin: '0 0 1% 0' }}>Add New Teacher</Link>
       }
       <div className="table-responsive paper">
         <table className="table">
@@ -78,9 +78,9 @@ const teachers = () => {
 
                   {isAdmin && <td>
                     <div className="row">
-                      <i className="fas fa-eye text-black mr-3" onClick={() => getViewTeacher(teacher)} title="View"></i>
+                      <i className="fas fa-eye text-black mr-3 icon-hover" onClick={() => getViewTeacher(teacher)} title="View"></i>
                       <Link href={`/create/teacher/${teacher._id}`}><i className="fas fa-edit text-info mr-1" title="Edit"></i></Link>
-                      <i className="fas fa-trash-alt text-danger ml-2" title="Remove" data-toggle="modal" data-target="#exampleModal"
+                      <i className="fas fa-trash-alt text-danger ml-2 icon-hover" title="Remove" data-toggle="modal" data-target="#exampleModal"
                         onClick={() => handleDeleteTeacher(teacher)}></i>
                     </div>
                   </td>}

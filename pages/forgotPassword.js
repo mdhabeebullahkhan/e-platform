@@ -51,7 +51,7 @@ const ForgotPassword = () => {
         </div>
         <button type="submit" className="btn btn-primary signBtn w-100">Submit</button>
         <p className="my-2">
-          You don't have an account? <Link href="/register"><a style={{ color: '#2196f3' }}>Register Now</a></Link>
+          You don't have an account? <Link href="/register" style={{ color: '#2196f3' }}>Register Now</Link>
         </p>
 
       </form>
