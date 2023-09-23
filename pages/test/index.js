@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import Link from 'next/link'
-import { DataContext } from '../store/GlobalState'
-import { getData } from '../utils/fetchData'
+import { DataContext } from '../../store/GlobalState'
+import { getData } from '../../utils/fetchData'
 // import { students } from '../pages/api/students'
 
 
-import InfoModal from '../components/InfoModal/respModal'
-import ViewStudent from './viewStudent/[id]'
+import InfoModal from '../../components/InfoModal/respModal'
+import ViewStudent from '../viewStudent/[id]'
 import { forEach } from 'lodash'
 
 const Students = (props) => {
@@ -78,6 +78,7 @@ const Students = (props) => {
                   {isAdmin && <td>
                     <div className="row">
                       <i className="fas fa-eye text-black mr-3 icon-hover" onClick={() => getViewStudent(stud)} title="View"></i>
+                      <Link href={`/test/${stud._id}`}><i className="fas fa-eye text-black mr-3 icon-hover" title="View"></i></Link>
                       <Link href={`/create/${stud._id}`}><i className="fas fa-edit text-info mr-1 icon-hover" title="Edit"></i></Link>
                       <i className="fas fa-trash-alt text-danger ml-2 icon-hover" title="Remove" data-toggle="modal" data-target="#exampleModal"
                         onClick={() => dispatch({
@@ -98,8 +99,8 @@ const Students = (props) => {
       <InfoModal open={open} setOpen={setOpen}>
         <div>
           <h2>Student Info</h2>
-          <ViewStudent id={id} />
-
+          {/* <ViewStudent /> */}
+            <id/>
         </div>
       </InfoModal>
     </div>
