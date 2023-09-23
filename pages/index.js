@@ -80,32 +80,19 @@ const Home = () => {
       {
         auth.user && auth.user.role === 'admin' || auth.user && auth.user.role === 'user' || auth.user && auth.user.role === 'student' ?
           <div>
-
             <div className="carousel image img-fluid" style={{marginTop:'3%'}}>
             {auth.user && auth.user.role === 'admin' ? <CollectionCards /> : ''}
             </div>
-
             {/* <div className="container-fluid p-0"><Filter state={state} /></div> */}
-
-           
             <div className="products">
-
               {auth.user && auth.user.role === 'admin' || auth.user && auth.user.role === 'feecollector' ? <FeeModule /> : ''}
               {auth.user && auth.user.role === 'admin' || auth.user && auth.user.role === 'student' || auth.user && auth.user.role === 'teacher' ? <StudentModule /> : ''}
               {auth.user && auth.user.role === 'admin' || auth.user && auth.user.role === 'teacher' ? <TeacherModule /> : ''}
               {auth.user && auth.user.role === 'admin' || auth.user && auth.user.role === 'teacher' ? <ReportGeneration /> : ''}
               {auth.user && auth.user.role === 'admin' ? <ClassGeneration /> : ''}
               {auth.user && auth.user.role === 'admin' ? <SchoolRegistration /> : ''}
-
             </div>
-            
-            {
-              // props.result < page * 6 ? ""
-              //   : <button className="btn btn-outline-primary d-block mx-auto mb-4"
-              //     onClick={handleLoadmore}>
-              //     See All
-              //   </button>
-            }</div> : <Signin />}
+            </div> : <Signin />}
     </div>
   )
 }
