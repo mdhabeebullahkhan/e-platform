@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useState, useContext, useRef } from 'react'
 import { postData, getData, putData } from '../../utils/fetchData'
 import { DataContext } from '../../store/GlobalState'
+// import { getServerSideProps } from '../teachers'
 
 
 
@@ -46,7 +47,9 @@ const ViewStudent = (props) => {
   const { state } = useContext(DataContext)
   const { auth } = state
   const isAdmin = auth && auth.user && auth.user.role === 'admin'
-  const id = props.id
+//   const id = props.id
+const router = useRouter()
+    const { id } = router.query
   const [student, setstudent] = useState([initialState])
   const { firstname, middlename, lastname, dateofbirth, gender, age, rollno, admissionno, birthmark, emailid, feestatus, fathername, fatheroccupation, fathermobilenumber, mothername, motheroccupation, mothermobilenumber, religion, cast, mothertongue, aadharno, branch, Class, section, houseno, city, State, country, pincode, accountneededcheck } = student
   const [checked, setChecked] = useState(false);
@@ -62,7 +65,6 @@ const ViewStudent = (props) => {
           }
         })
     } else {
-      setOnEdit(false)
       setstudent({ ...initialState })
     }
   }, [id])
@@ -362,4 +364,26 @@ const ViewStudent = (props) => {
     </div>
   )
 }
+
+// export const getServerSideProps = async(context, auth)=>{
+//     console.log("TESTING.......")
+//     const {params} = context
+//     const id = params.id
+//     console.log(params)
+// const profData = await getData(`teachers/${id}`, auth)
+//         .then(res => {
+//           if (res.err) console.log("Check");
+//           else {
+//             // setstudent(res.students);
+//             ( res.student )
+//           }
+//         })
+// return{
+//     props:{
+//         student : profData
+//     }
+// }
+// }
+
 export default ViewStudent
+
