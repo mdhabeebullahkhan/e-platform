@@ -1,9 +1,7 @@
 import connectDB from '../../../utils/connectDB'
-import TeacherModel from '../../../models/teacherModel'
+import StaffModel from '../../../models/staffModel'
 import UsersModel from '../../../models/usersModel'
-import auth from '../../../middleware/auth'
-import { CONTACT_ADMIN_ERR_MSG, ERROR_401 } from '../../../utils/constants'
-import nc from 'next-connect'
+import { CONTACT_ADMIN_ERR_MSG } from '../../../utils/constants'
 
 connectDB()
 
@@ -25,7 +23,7 @@ export default async (req, res) => {
 
 const getTeachers = async (req, res) => {
     try {
-        const teachers = await TeacherModel.find()
+        const teachers = await StaffModel.find()
         res.json({ teachers })
 
     } catch (err) {
@@ -44,11 +42,11 @@ const createTeachers = async (req, res) => {
             await newUser.save()
             const user_Id = await UsersModel.findOne({ email: emailid })
             const userId = user_Id.id
-            const newTeacher = new TeacherModel({ firstname, middlename, lastname, dateofbirth, age, gender, maritalstatus, contactnumber, emailid, religion, salary, branch, aadharno, fathername, mothername, houseno, city, State, country, pincode, password, role, accountneededcheck, userId })
+            const newTeacher = new StaffModel({ firstname, middlename, lastname, dateofbirth, age, gender, maritalstatus, contactnumber, emailid, religion, salary, branch, aadharno, fathername, mothername, houseno, city, State, country, pincode, password, role, accountneededcheck, userId })
             await newTeacher.save()
         } else {
             const userId = null
-            const newTeacher = new TeacherModel({ firstname, middlename, lastname, dateofbirth, age, gender, maritalstatus, contactnumber, emailid, religion, salary, branch, aadharno, fathername, mothername, houseno, city, State, country, pincode, password, role, accountneededcheck, userId })
+            const newTeacher = new StaffModel({ firstname, middlename, lastname, dateofbirth, age, gender, maritalstatus, contactnumber, emailid, religion, salary, branch, aadharno, fathername, mothername, houseno, city, State, country, pincode, password, role, accountneededcheck, userId })
             await newTeacher.save()
         }
         res.json({ msg: 'Teacher Added Success!' });

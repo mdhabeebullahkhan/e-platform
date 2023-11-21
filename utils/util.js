@@ -1,4 +1,4 @@
-import { ERROR_401, PLEASE_LOG_IN } from "./constants";
+import { ERROR_403, PLEASE_LOG_IN } from "./constants";
 import isEmpty from 'lodash/isEmpty';
 
 export const renameFile = (originalFile, newName) => {
@@ -10,7 +10,7 @@ export const renameFile = (originalFile, newName) => {
 
 export const isAdmin = (auth, dispatch) => {
     if (auth && auth.user && auth.user.role !== 'admin')
-        return dispatch({ type: 'NOTIFY', payload: { error: ERROR_401 } })
+        return dispatch({ type: 'NOTIFY', payload: { error: ERROR_403 } })
 }
 
 export const isLoggedIn = (auth, dispatch, router) => {
