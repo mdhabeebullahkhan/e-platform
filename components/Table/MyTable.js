@@ -28,7 +28,7 @@ const MyTable = ({ columns, data }) => {
 
   return (
     <>
-      <div style={{overflow:'scroll'}}>
+      <div className="table-contianer">
         <table {...getTableProps()} className="table">
           <thead>
             {headerGroups.map(headerGroup => (
@@ -58,52 +58,60 @@ const MyTable = ({ columns, data }) => {
           </tbody>
         </table>
       </div>
-      <div className="pagination">
-        <button onClick={() => gotoPage(0)} disabled={pageIndex === 0}>
-          {'<<'}
-        </button>{' '}
-        <button onClick={() => previousPage()} disabled={pageIndex === 0}>
-          {'<'}
-        </button>{' '}
-        <button onClick={() => nextPage()} disabled={pageIndex >= page.length - 1}>
-          {'>'}
-        </button>{' '}
-        <button
-          onClick={() => gotoPage(page.length - 1)}
-          disabled={pageIndex >= page.length - 1}
-        >
-          {'>>'}
-        </button>{' '}
-        <span>
-          Page{' '}
-          <strong>
-            {pageIndex + 1} of {page.length}
-          </strong>{' '}
-        </span>
-        <span>
-          | Go to page:{' '}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
+      <div className="pagination row">
+        <div>
+          <button onClick={() => gotoPage(0)} disabled={pageIndex === 0}>
+            {'<<'}
+          </button>{' '}
+          <button onClick={() => previousPage()} disabled={pageIndex === 0}>
+            {'<'}
+          </button>{' '}
+          <button onClick={() => nextPage()} disabled={pageIndex >= page.length - 1}>
+            {'>'}
+          </button>{' '}
+          <button
+            onClick={() => gotoPage(page.length - 1)}
+            disabled={pageIndex >= page.length - 1}
+          >
+            {'>>'}
+          </button>{' '}
+        </div>
+        <div>
+          <span>
+            Page{' '}
+            <strong>
+              {pageIndex + 1} of {page.length}
+            </strong>{' '}
+          </span>
+        </div>
+        <div>
+          <span>
+            | Go to page:{' '}
+            <input
+              type="number"
+              defaultValue={pageIndex + 1}
+              onChange={e => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+              style={{ width: '50px' }}
+            />
+          </span>{' '}
+        </div>
+        <div>
+          <select
+            value={pageSize}
             onChange={e => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              gotoPage(page);
+              setPageSize(Number(e.target.value));
             }}
-            style={{ width: '50px' }}
-          />
-        </span>{' '}
-        <select
-          value={pageSize}
-          onChange={e => {
-            setPageSize(Number(e.target.value));
-          }}
-        >
-          {[10, 20, 30, 40, 50].map(pageSize => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
+          >
+            {[10, 20, 30, 40, 50].map(pageSize => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
     </>
   );

@@ -98,11 +98,11 @@ const Students = () => {
                       <i className="fas fa-trash-alt text-danger ml-2 icon-hover" title="Remove" data-toggle="modal" data-target="#exampleModal"
                         onClick={() => dispatch({
                           type: 'ADD_MODAL',
-                          payload: [{
+                          payload: {
                             data: '', id: stud._id,
                             title: stud.firstname + " " + stud.middlename + " " + stud.lastname,
                             type: 'DELETE_STUDENT'
-                          }]
+                          }
                         })}></i>
                     </div>
                   </td>}

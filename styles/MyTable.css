@@ -1,3 +1,7 @@
+.table-contianer{
+  overflow: scroll;
+  border-radius: 10px;
+}
 table {
     border-collapse: collapse;
     width: 100%;
@@ -6,6 +10,9 @@ table {
     text-align: left;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   } 
+  .table td, .table th{
+    padding: 0.25rem;
+  }
 
   table th {
     background-color: #632bb8;
@@ -26,3 +33,10 @@ table {
     border-bottom: 1px solid #ccc;
     /* font-weight: bold; */
   }
+
+  .pagination{
+    font-family: 'Poppins', sans-serif;
+    display: inline-flex;
+    position: relative;
+    padding: 10px;
+}

@@ -22,6 +22,10 @@ export const PLEASE_LOG_IN = 'Please sign in to proceed further.';
 export const INVALID_LOGIN = 'Login failed! Invalid User Name or Password.';
 export const PROCESSING_MSG = 'Processing, please wait...';
 export const SIGNING_MSG = 'Signing in, please wait...';
+export const FILE_UPLOAD_SUCESS = 'File uploaded successfully.';
+export const DATA_UPLOAD_ISSUE = 'Partial Data uploaded!';
+export const SIGN_IN = 'SIGN_IN';
+
 //Filters.js
 
 export const ALL = 'All Orders';
@@ -39,4 +43,5 @@ export const DATE_TIME_FORMAT = "h:mm aaa, do MMM YYYY";
 
 // Roles
 export const ADMIN_ROLE = "admin";
-export const USER_ROLE = "user";
+export const STUDENT_ROLE = "student";
+export const TEACHER_ROLE = "teacher";

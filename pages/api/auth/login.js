@@ -22,10 +22,10 @@ const login = async (req, res) => {
         const { userName: email, password } = req.body
         let user = await Users.findOne({ email })
         if (!user) user = await Users.findOne({ name: email })
-        if (!user) return res.status(401).json({ err: 'Login failed; Invalid user name or password.1' })
+        if (!user) return res.status(401).json({ err: 'Login failed; Invalid user name or password.' })
 
         const isMatch = await bcrypt.compare(password, user.password)
-        if (!isMatch) return res.status(401).json({ err: 'Login failed; Invalid user name or password.2' })
+        if (!isMatch) return res.status(401).json({ err: 'Login failed; Invalid user name or password!' })
 
         const access_token = createAccessToken({ id: user._id })
 
