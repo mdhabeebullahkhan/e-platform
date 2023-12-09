@@ -1,5 +1,6 @@
 import path from 'path';
 import multer from 'multer';
+import crypto from 'crypto';
 
 const oneMegabyteInBytes = 1000000;
 
@@ -19,7 +20,7 @@ export const imgUpload = multer({
     limits: { fileSize: oneMegabyteInBytes * 8 },
     storage: multer.memoryStorage({
      // destination: './public/assets/data',
-      filename: (req, file, cb) => cb(null, file.originalname + '-' + Date.now() + '-' + Math.round(Math.random() * 1E9)),
+      filename: (req, file, cb) => cb(null, file.originalname + '-' + Date.now() + '-' + crypto.randomBytes(3)),
     }),
     fileFilter: function(req, file, cb){
       checkDataFileType(file, cb);
