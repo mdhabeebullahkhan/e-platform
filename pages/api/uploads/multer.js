@@ -16,7 +16,7 @@ export const imgUpload = multer({
   });
 
   export const dataFileUpload = multer({
-    limits: { fileSize: oneMegabyteInBytes * 2 },
+    limits: { fileSize: oneMegabyteInBytes * 8 },
     storage: multer.memoryStorage({
      // destination: './public/assets/data',
       filename: (req, file, cb) => cb(null, file.originalname + '-' + Date.now() + '-' + Math.round(Math.random() * 1E9)),

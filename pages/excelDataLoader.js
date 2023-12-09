@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React, { useContext, useState } from 'react';
 import { DataContext } from '../store/GlobalState';
-import { uploader } from '../utils/Uploader';
+import { uploader } from '../utils/uploader';
 import { CONTACT_ADMIN_ERR_MSG, FILE_UPLOAD_SUCESS } from '../utils/constants';
 import { useEffect } from 'react';
 import { isAdmin } from '../utils/util';

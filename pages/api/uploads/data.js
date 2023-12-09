@@ -48,7 +48,7 @@ data.use(dataFileUpload.single('file'), async (req, res) => {
       let failCount = 0;
       dataArr && dataArr.forEach(student => {
         const responseCode = createStudent(student);
-        if(responseCode === 500) {
+        if(responseCode == 500) {
           ++failCount;
           log.error('Student data not inserted : '+student.firstName+' '+student.LastName)
         }
