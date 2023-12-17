@@ -1,7 +1,7 @@
 import connectDB from '../../../utils/connectDB'
-import Users from '../../../models/userModel'
+import Users from '../../../models/usersModel'
 import auth from '../../../middleware/auth'
-import { CONTACT_ADMIN_ERR_MSG, ERROR_401 } from '../../../utils/constants'
+import { CONTACT_ADMIN_ERR_MSG, ERROR_403 } from '../../../utils/constants'
 
 connectDB()
 
@@ -25,7 +25,7 @@ const getUsers = async (req, res) => {
     try {
         const result = await auth(req, res)
         if (result.role !== 'admin')
-            return res.status(401).json({ err: ERROR_401 })
+            return res.status(401).json({ err: ERROR_403 })
 
         const users = await Users.find().select('-password')
         res.json({ users })

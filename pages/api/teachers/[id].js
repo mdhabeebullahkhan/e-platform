@@ -1,8 +1,8 @@
 import connectDB from '../../../utils/connectDB'
-import TeacherModel from '../../../models/teacherModel'
+import StaffModel from '../../../models/staffModel'
 import UsersModel from '../../../models/usersModel'
 import auth from '../../../middleware/auth'
-import { CONTACT_ADMIN_ERR_MSG, ERROR_401 } from '../../../utils/constants'
+import { CONTACT_ADMIN_ERR_MSG, ERROR_403 } from '../../../utils/constants'
 
 connectDB()
 /*
@@ -28,7 +28,7 @@ export default async (req, res) => {
 const getTeacher = async (req, res) => {
     try {
         const { id } = req.query;
-        const teacher = await TeacherModel.findById(id)
+        const teacher = await StaffModel.findById(id)
         if (!teacher) return res.status(400).json({ err: 'This teacher does not exist.' })
         console.log("Teacher :" + teacher)
         res.json({ teacher })
@@ -44,15 +44,15 @@ const getTeacher = async (req, res) => {
 const updateTeacher = async (req, res) => {
     try {
         const result = await auth(req, res)
-        if (result.role !== 'admin') return res.status(401).json({ err: ERROR_401 })
+        if (result.role !== 'admin') return res.status(401).json({ err: ERROR_403 })
         const { id } = req.query
         const { firstname, middlename, lastname, dateofbirth, age, gender, maritalstatus, contactnumber, emailid, religion, salary, branch, aadharno, fathername, mothername, houseno, city, State, country, pincode, password, role, accountneededcheck, userId } = req.body
 
         if (accountneededcheck) {
 
             if (userId !== null && userId !== undefined) {
-                await TeacherModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, age, gender, maritalstatus, contactnumber, emailid, religion, salary, branch, aadharno, fathername, mothername, houseno, city, State, country, pincode, password, role, accountneededcheck })
-                const teacherTableUserId = await TeacherModel.findOne({ _id: id })
+                await StaffModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, age, gender, maritalstatus, contactnumber, emailid, religion, salary, branch, aadharno, fathername, mothername, houseno, city, State, country, pincode, password, role, accountneededcheck })
+                const teacherTableUserId = await StaffModel.findOne({ _id: id })
                 const internalUserId = teacherTableUserId.userId
                 await UsersModel.findOneAndUpdate({ _id: internalUserId }, { email: emailid })
             } else {
@@ -61,20 +61,20 @@ const updateTeacher = async (req, res) => {
                 const user_Id = await UsersModel.findOne({ email: emailid })
                 const userId = user_Id.id
                 console.log("USER ID : " + userId)
-                await TeacherModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, age, gender, maritalstatus, contactnumber, emailid, religion, salary, branch, aadharno, fathername, mothername, houseno, city, State, country, pincode, password, role, accountneededcheck, userId })
+                await StaffModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, age, gender, maritalstatus, contactnumber, emailid, religion, salary, branch, aadharno, fathername, mothername, houseno, city, State, country, pincode, password, role, accountneededcheck, userId })
             }
 
         } else {
             if (userId == null) {
-                await TeacherModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, age, gender, maritalstatus, contactnumber, emailid, religion, salary, branch, aadharno, fathername, mothername, houseno, city, State, country, pincode, password, role, accountneededcheck })
+                await StaffModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, age, gender, maritalstatus, contactnumber, emailid, religion, salary, branch, aadharno, fathername, mothername, houseno, city, State, country, pincode, password, role, accountneededcheck })
             } else {
                 if (!accountneededcheck) {
                     //as accountneededcheck is false we need to delete user from userTable by taking userId from teacher table and update userId == null
-                    const teacherTableUserId = await TeacherModel.findOne({ _id: id })
+                    const teacherTableUserId = await StaffModel.findOne({ _id: id })
                     const internalUserId = teacherTableUserId.userId
                     await UsersModel.findByIdAndDelete(internalUserId)
                     const userId = null
-                    await TeacherModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, age, gender, maritalstatus, contactnumber, emailid, religion, salary, branch, aadharno, fathername, mothername, houseno, city, State, country, pincode, password, role, accountneededcheck, userId })
+                    await StaffModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, age, gender, maritalstatus, contactnumber, emailid, religion, salary, branch, aadharno, fathername, mothername, houseno, city, State, country, pincode, password, role, accountneededcheck, userId })
                 }
             }
 
@@ -96,17 +96,17 @@ const deleteTeacher = async (req, res) => {
     try {
 
         const result = await auth(req, res)
-        if (result.role !== 'admin') return res.status(401).json({ err: ERROR_401 })
+        if (result.role !== 'admin') return res.status(401).json({ err: ERROR_403 })
         const { id } = req.query
-        const teacherTable = await TeacherModel.findOne({ _id: id })
+        const teacherTable = await StaffModel.findOne({ _id: id })
         const teacherAccountNeededCheck = teacherTable.accountneededcheck
         console.log("NEED ONLINE ACCOUUNT CHECK : DELETE TEACHER CALLED " + teacherAccountNeededCheck)
         if (teacherAccountNeededCheck) {
             const teacherInternalId = teacherTable.userId
             await UsersModel.findByIdAndDelete(teacherInternalId)
-            await TeacherModel.findByIdAndDelete(id)
+            await StaffModel.findByIdAndDelete(id)
         } else {
-            await TeacherModel.findByIdAndDelete(id)
+            await StaffModel.findByIdAndDelete(id)
         }
         res.json({ msg: "Teacher Deleted Successfully" })
 

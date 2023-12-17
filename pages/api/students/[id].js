@@ -1,8 +1,8 @@
 import connectDB from '../../../utils/connectDB'
-import StudentModel from '../../../models/studentModel'
+import StudentsModel from '../../../models/studentsModel'
 import UsersModel from '../../../models/usersModel'
 import auth from '../../../middleware/auth'
-import { CONTACT_ADMIN_ERR_MSG, ERROR_401 } from '../../../utils/constants'
+import { CONTACT_ADMIN_ERR_MSG, ERROR_403 } from '../../../utils/constants'
 
 connectDB()
 /*
@@ -28,7 +28,7 @@ export default async (req, res) => {
 const getStudent = async (req, res) => {
     try {
         const { id } = req.query;
-        const student = await StudentModel.findById(id)
+        const student = await StudentsModel.findById(id)
         if (!student) return res.status(400).json({ err: 'This student does not exist.' })
         console.log("Student :" + student)
         res.json({ student })
@@ -44,15 +44,15 @@ const getStudent = async (req, res) => {
 const updateStudent = async (req, res) => {
     try {
         const result = await auth(req, res)
-        if (result.role !== 'admin') return res.status(401).json({ err: ERROR_401 })
+        if (result.role !== 'admin') return res.status(401).json({ err: ERROR_403 })
         const { id } = req.query
         const { firstname, middlename, lastname, dateofbirth, gender, age, rollno, admissionno, birthmark, emailid, feestatus, fathername, fatheroccupation, fathermobilenumber, mothername, motheroccupation, mothermobilenumber, religion, cast, mothertongue, aadharno, branch, Class, section, houseno, city, State, country, pincode, password, role, accountneededcheck, userId } = req.body
 
         if (accountneededcheck) {
 
             if (userId !== null && userId !== undefined) {
-                await StudentModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, gender, age, rollno, admissionno, birthmark, emailid, feestatus, fathername, fatheroccupation, fathermobilenumber, mothername, motheroccupation, mothermobilenumber, religion, cast, mothertongue, aadharno, branch, Class, section, houseno, city, State, country, pincode, accountneededcheck })
-                const studentTableUserId = await StudentModel.findOne({ _id: id })
+                await StudentsModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, gender, age, rollno, admissionno, birthmark, emailid, feestatus, fathername, fatheroccupation, fathermobilenumber, mothername, motheroccupation, mothermobilenumber, religion, cast, mothertongue, aadharno, branch, Class, section, houseno, city, State, country, pincode, accountneededcheck })
+                const studentTableUserId = await StudentsModel.findOne({ _id: id })
                 const internalUserId = studentTableUserId.userId
                 await UsersModel.findOneAndUpdate({ _id: internalUserId }, { email: emailid })
             } else {
@@ -61,20 +61,20 @@ const updateStudent = async (req, res) => {
                 const user_Id = await UsersModel.findOne({ email: emailid })
                 const userId = user_Id.id
                 console.log("USER ID : " + userId)
-                await StudentModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, gender, age, rollno, admissionno, birthmark, emailid, feestatus, fathername, fatheroccupation, fathermobilenumber, mothername, motheroccupation, mothermobilenumber, religion, cast, mothertongue, aadharno, branch, Class, section, houseno, city, State, country, pincode, accountneededcheck, userId })
+                await StudentsModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, gender, age, rollno, admissionno, birthmark, emailid, feestatus, fathername, fatheroccupation, fathermobilenumber, mothername, motheroccupation, mothermobilenumber, religion, cast, mothertongue, aadharno, branch, Class, section, houseno, city, State, country, pincode, accountneededcheck, userId })
             }
 
         } else {
             if (userId == null) {
-                await StudentModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, gender, age, rollno, admissionno, birthmark, emailid, feestatus, fathername, fatheroccupation, fathermobilenumber, mothername, motheroccupation, mothermobilenumber, religion, cast, mothertongue, aadharno, branch, Class, section, houseno, city, State, country, pincode, accountneededcheck })
+                await StudentsModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, gender, age, rollno, admissionno, birthmark, emailid, feestatus, fathername, fatheroccupation, fathermobilenumber, mothername, motheroccupation, mothermobilenumber, religion, cast, mothertongue, aadharno, branch, Class, section, houseno, city, State, country, pincode, accountneededcheck })
             } else {
                 if (!accountneededcheck) {
                     //as accountneededcheck is false we need to delete user from userTable by taking userId from student table and update userId == null
-                    const studentTableUserId = await StudentModel.findOne({ _id: id })
+                    const studentTableUserId = await StudentsModel.findOne({ _id: id })
                     const internalUserId = studentTableUserId.userId
                     await UsersModel.findByIdAndDelete(internalUserId)
                     const userId = null
-                    await StudentModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, gender, age, rollno, admissionno, birthmark, emailid, feestatus, fathername, fatheroccupation, fathermobilenumber, mothername, motheroccupation, mothermobilenumber, religion, cast, mothertongue, aadharno, branch, Class, section, houseno, city, State, country, pincode, accountneededcheck, userId })
+                    await StudentsModel.findOneAndUpdate({ _id: id }, { firstname, middlename, lastname, dateofbirth, gender, age, rollno, admissionno, birthmark, emailid, feestatus, fathername, fatheroccupation, fathermobilenumber, mothername, motheroccupation, mothermobilenumber, religion, cast, mothertongue, aadharno, branch, Class, section, houseno, city, State, country, pincode, accountneededcheck, userId })
                 }
             }
 
@@ -96,17 +96,17 @@ const deleteStudent = async (req, res) => {
     try {
 
         const result = await auth(req, res)
-        if (result.role !== 'admin') return res.status(401).json({ err: ERROR_401 })
+        if (result.role !== 'admin') return res.status(401).json({ err: ERROR_403 })
         const { id } = req.query
-        const studentTable = await StudentModel.findOne({ _id: id })
+        const studentTable = await StudentsModel.findOne({ _id: id })
         const studAccountNeededCheck = studentTable.accountneededcheck
         console.log("NEED ONLINE ACCOUUNT CHECK : DELETE STUDENT CALLED " + studAccountNeededCheck)
         if (studAccountNeededCheck) {
             const studInternalId = studentTable.userId
             await UsersModel.findByIdAndDelete(studInternalId)
-            await StudentModel.findByIdAndDelete(id)
+            await StudentsModel.findByIdAndDelete(id)
         } else {
-            await StudentModel.findByIdAndDelete(id)
+            await StudentsModel.findByIdAndDelete(id)
         }
         res.json({ msg: "Student Deleted Successfully" })
 

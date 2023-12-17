@@ -33,11 +33,11 @@ const teachers = (props) => {
   const handleDeleteTeacher=(teacher)=>{
     dispatch({
       type: 'ADD_MODAL',
-      payload: [{
+      payload: {
         data: '', id: teacher._id,
         title: teacher.firstname + " " + teacher.middlename + " " + teacher.lastname,
         type: 'DELETE_TEACHER'
-      }]
+      }
     })
   }
 

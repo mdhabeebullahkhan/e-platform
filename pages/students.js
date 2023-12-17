@@ -1,46 +1,62 @@
 import React, { useState, useEffect } from 'react'
 import { useContext } from 'react'
-import Link from 'next/link'
 import { DataContext } from '../store/GlobalState'
 import { getData } from '../utils/fetchData'
-// import { students } from '../pages/api/students'
+import MyTable from '../components/Table/MyTable'
+import { studentHeader } from '../components/StudentModule/studentHeader'
 
-
-import InfoModal from '../components/InfoModal/respModal'
-import ViewStudent from './viewStudent/[id]'
-import { forEach } from 'lodash'
-
-const Students = (props) => {
+const Students = () => {
   const { state, dispatch } = useContext(DataContext)
   const { auth } = state
   const isAdmin = auth && auth.user && auth.user.role === 'admin'
+  const [students, setStudents] = useState([]);
   const [open, setOpen] = useState(false)
   const [id, setId] = useState('')
   const [searchByStudName, setSearchByStudName] = useState('');
   const [searchByFatherName, setSearchByFatherName] = useState('');
 
-  const { students } = props
-  // useEffect(() => {
-  //   setStudents(props.students);
-  // }, [])
 
-  // const getStudentsData = async () => {
-  //   await getData('students', auth.token)
-  //     .then(res => {
-  //       if (res.err) setStudents([]);
-  //       else {
-  //         setStudents(res.students);
-  //       }
-  //     })
+  useEffect(() => {
+    getStudentsData();
+  }, [])
 
+  const getStudentsData = async () => {
+    await getData('students', auth.token)
+      .then(res => {
+        if (res.err) setStudents([]);
+        else setStudents(res.students);
+      })
+  }
   const getViewStudent = (stud) => {
     setOpen(true)
     setId(stud._id)
   }
+  const columns = [
+    {
+      Header: 'Name',
+      accessor: 'name',
+      Filter: ({ column }) => <input {...column.getFilterProps} />,
+    },
+    {
+      Header: 'Age',
+      accessor: 'age',
+      Filter: ({ column }) => <input {...column.getFilterProps} />,
+    },
+    {
+      Header: 'City',
+      accessor: 'city',
+      Filter: ({ column }) => <input {...column.getFilterProps} />,
+    },
+  ];
 
   return (
     <div className="container">
-      <div className='app-header'><h2>Students Information</h2></div>
+      <div className=''><h2>Students Information</h2></div>
+      {
+        students && (<MyTable columns={studentHeader} data={students} />)
+      }
+      
+{/*       
       {isAdmin && <Link href={`/create`} className="btn btn-success" style={{ float: 'right', margin: '0 0 1% 0' }}>Add New Student</Link>}
       <div style={{ display: 'flex' }}>
         <div><input type="text" name="studentName" className="form-control" placeholder='Search by student name' onChange={(e) => { setSearchByStudName(e.target.value) }} maxLength='25' required /></div>
@@ -64,8 +80,8 @@ const Students = (props) => {
           </thead>
           <tbody>
             {
-              students && students.length !== 0 ? 
-              students.filter((val) => { let fullname = val.firstname + " " + val.middlename + " " + val.lastname; if (searchByStudName !== "") { if (fullname.toLowerCase().includes(searchByStudName.toLowerCase())) { return val } } else if (val.fathername.toLowerCase().includes(searchByFatherName)) { return val } }).map((stud, index) => (
+              students && students.length !== 0 ? students.filter((val) => { let fullname = val.firstname + " " + val.middlename + " " + val.lastname; if (searchByStudName !== "") { if (fullname.toLowerCase().includes(searchByStudName.toLowerCase())) { return val } } else if (val.fathername.toLowerCase().includes(searchByFatherName)) { return val } }).map((stud, index) => (
+                // students && students.length !== 0 ? students.filter((val) => {if(searchByStudName == " " || searchByFatherName == " ") {return val}}).map((stud, index) => (
 
                 <tr key={stud._id}>
                   <td>{index + 1}</td>
@@ -82,11 +98,11 @@ const Students = (props) => {
                       <i className="fas fa-trash-alt text-danger ml-2 icon-hover" title="Remove" data-toggle="modal" data-target="#exampleModal"
                         onClick={() => dispatch({
                           type: 'ADD_MODAL',
-                          payload: [{
+                          payload: {
                             data: '', id: stud._id,
                             title: stud.firstname + " " + stud.middlename + " " + stud.lastname,
                             type: 'DELETE_STUDENT'
-                          }]
+                          }
                         })}></i>
                     </div>
                   </td>}
@@ -101,22 +117,8 @@ const Students = (props) => {
           <ViewStudent id={id} />
 
         </div>
-      </InfoModal>
+      </InfoModal> */}
     </div>
   )
 }
-
-export async function getServerSideProps (context, auth){
-  const {params} = context;
-  const studData =   await getData('students', auth)
-  let data ={}
-  if(!studData){console.log("Loading...")}else{data = studData}
-  return{
-    props:{
-       students: data.students
-    }
-  }
-}
-
 export default Students
-

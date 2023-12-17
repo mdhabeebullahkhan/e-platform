@@ -1,19 +1,19 @@
 import mongoose from 'mongoose'
 
-const teacherSchema = new mongoose.Schema({
-    firstname: {
+const studentsSchema = new mongoose.Schema({
+    firstName: {
         type: String,
         required: true
     },
-    middlename: {
+    middleName: {
         type: String,
         required: true
     },
-    lastname: {
+    lastName: {
         type: String,
         required: true
     },
-    dateofbirth: {
+    dob: {
         type: String,
         required: true,
     },
@@ -22,26 +22,70 @@ const teacherSchema = new mongoose.Schema({
         required: true,
     },
     age: {
-        type: String,
+        type: Number,
         required: true,
-    }, 
-    maritalstatus: {
+    },
+    rollNo: {
         type: String,
         required: true,
     },
-    contactnumber: {
+    admissionNo: {
         type: String,
         required: true,
     },
-    emailid: {
+    admissionDate:{
+        type: Date,
+        required: true
+    },
+    birthMark: {
         type: String,
         required: true,
-    },        
+    },
+    emailId: {
+        type: String,
+        required: true,
+    },
+    feeStatus: {
+        type: String,
+        required: true,
+    },
+    fatherName: {
+        type: String,
+        required: true,
+    },
+    fatherOccupation: {
+        type: String,
+        required: true,
+    },
+    fatherMobileNo: {
+        type: String,
+        required: true,
+    },
+    motherName: {
+        type: String,
+        required: true,
+    },
+    motherOccupation: {
+        type: String,
+        required: true,
+    },
+    motherMobileNo: {
+        type: String,
+        required: true,
+    },
     religion: {
         type: String,
         required: true,
     },
-    salary: {
+    cast: {
+        type: String,
+        required: true,
+    },
+    motherTongue: {
+        type: String,
+        required: true,
+    },
+    aadharNo: {
         type: String,
         required: true,
     },
@@ -49,19 +93,15 @@ const teacherSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    aadharno: {
+    class: {
         type: String,
         required: true,
     },
-    fathername: {
+    section: {
         type: String,
         required: true,
     },
-    mothername: {
-        type: String,
-        required: true,
-    },
-    houseno: {
+    address: {
         type: String,
         required: true,
     },
@@ -69,7 +109,7 @@ const teacherSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    State: {
+    state: {
         type: String,
         required: true,
     },
@@ -77,20 +117,21 @@ const teacherSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    pincode: {
+    pinCode: {
         type: String,
         required: true,
-    },    
-    accountneededcheck: {
+    },
+    accountRequired: {
         type: Boolean,
     },
     userId: {
-        type: String,
-    },
+        type: mongoose.Types.ObjectId,
+        ref: "user"
+    }
 
 }, {
     timestamps: true
 })
 
-let Dataset = mongoose.models.teacher || mongoose.model('teacher', teacherSchema)
+let Dataset = mongoose.models.students || mongoose.model('students', studentsSchema)
 export default Dataset

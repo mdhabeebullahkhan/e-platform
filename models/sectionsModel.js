@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
 
-const sectionGenerationSchema = new mongoose.Schema({
-    sections: {
+const sectionSchema = new mongoose.Schema({
+    section: {
         type: String,
     },
 })
 
-let Dataset = mongoose.models. sectionGeneration || mongoose.model('sectionGeneration', sectionGenerationSchema)
+let Dataset = mongoose.models. section || mongoose.model('section', sectionSchema)
 export default Dataset

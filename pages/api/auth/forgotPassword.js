@@ -1,5 +1,5 @@
 import connectDB from '../../../utils/connectDB'
-import Users from '../../../models/userModel'
+import Users from '../../../models/usersModel'
 import Tokens from '../../../models/tokenModel'
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';

@@ -1,5 +1,5 @@
 import connectDB from '../../../../utils/connectDB'
-import Users from '../../../../models/userModel'
+import Users from '../../../../models/usersModel'
 import { CONTACT_ADMIN_ERR_MSG } from '../../../../utils/constants'
 
 connectDB()
