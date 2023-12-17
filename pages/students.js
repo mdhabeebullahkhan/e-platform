@@ -51,7 +51,7 @@ const Students = () => {
 
   return (
     <div className="container">
-      <div className=''><h2>Students Information</h2></div>
+      <h6>Students Information</h6>
       {
         students && (<MyTable columns={studentHeader} data={students} />)
       }

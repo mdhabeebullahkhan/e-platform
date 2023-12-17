@@ -29,11 +29,13 @@ data.use(dataFileUpload.single('file'), async (req, res) => {
       let dataArr = [];
       transitDataSheet && transitDataSheet.eachRow((row, rowNo) => {
             //console.log('-------------rowNo ',rowNo,'-----------');
+            //console.log('row : ',row.values)
             if(rowNo !== 1){
                 let student = {};
                 if(headers){
                     headers.forEach((header, i)=>{
                         ++i;//To avoid first element which is empty element.
+                        console.log('Type : '+(typeof row.values[i].result), 'value : ',row.values[i].result);
                         student[header] = ((i-1) < headers.length) ?  (row.values[i].result) ? row.values[i].result : '' : '';
                     });
                     dataArr.push(student);
