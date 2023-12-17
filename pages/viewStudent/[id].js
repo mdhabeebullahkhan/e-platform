@@ -53,7 +53,6 @@ const ViewStudent = (props) => {
 
   useEffect(() => {
     if (id) {
-
       getData(`students/${id}`, auth.token)
         .then(res => {
           if (res.err) setstudent([]);

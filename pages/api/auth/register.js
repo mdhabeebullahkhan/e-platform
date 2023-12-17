@@ -1,6 +1,6 @@
 import connectDB from '../../../utils/connectDB'
 import { ACC_ACT_MAIL, CONTACT_ADMIN_ERR_MSG } from '../../../utils/constants'
-import Users from '../../../models/userModel'
+import Users from '../../../models/usersModel'
 import { valid } from '../../../utils/valid'
 import { postData } from '../../../utils/fetchData'
 import bcrypt from 'bcrypt'

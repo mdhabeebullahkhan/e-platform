@@ -1,7 +1,7 @@
 import connectDB from '../../../utils/connectDB'
 import UsersModel from '../../../models/usersModel'
 import auth from '../../../middleware/auth'
-import { CONTACT_ADMIN_ERR_MSG, ERROR_401 } from '../../../utils/constants'
+import { CONTACT_ADMIN_ERR_MSG, ERROR_403 } from '../../../utils/constants'
 import nc from 'next-connect'
 
 connectDB()

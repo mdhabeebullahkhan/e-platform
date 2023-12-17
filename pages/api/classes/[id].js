@@ -1,7 +1,7 @@
 import connectDB from '../../../utils/connectDB'
 import Classes from '../../../models/classesModel'
 import auth from '../../../middleware/auth'
-import { CONTACT_ADMIN_ERR_MSG, ERROR_401 } from '../../../utils/constants'
+import { CONTACT_ADMIN_ERR_MSG, ERROR_403 } from '../../../utils/constants'
 
 connectDB()
 /*
@@ -19,7 +19,7 @@ export default async (req, res) => {
 const updateClasses = async (req, res) => {
     try {
         const result = await auth(req, res)
-        if (result.role !== 'admin') return res.status(401).json({ err: ERROR_401 })
+        if (result.role !== 'admin') return res.status(401).json({ err: ERROR_403 })
 
         const { id } = req.query
         const { class1, class2, class3, class4, class5, class6, class7, class8, class9, class10 } = req.body

@@ -1,0 +1,101 @@
+.my-table{
+  background-color: #ffffffd3;
+  border-radius: 0.8rem;
+  border: Solid 3px #ffffffd3;
+}
+.table-contianer{
+  overflow: scroll;
+  overflow-y: hidden;
+  border-radius: 0.8rem;
+}
+
+.table-contianer::-webkit-scrollbar{
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+table {
+    width: 100vw;
+    font-size: 12px;
+    text-align: left;
+    table-layout: fixed;
+    overflow: hidden;
+    margin-bottom:5px !important;
+    border-collapse: collapse;
+    border-radius: 0.8rem;
+  } 
+
+  .table td, .table th{
+    padding: 5px;
+    padding-left: 10px;
+    border-collapse: collapse;
+  }
+  .table thead th{
+    padding-left: 5px;
+  }
+  table th {
+    background-color: #632bb8;
+    color: #fff;
+    font-size: smaller;
+  }
+
+  table tr:nth-child(even) td {
+    background-color: #f2f2f2;
+  }
+  
+  table tr:hover td {
+    background-color: #c7c9e2;
+  }
+
+  table td {
+    background-color: #fff;
+  }
+
+  .pagination{
+    padding: 5px;
+}
+
+.pagination label{
+font-size: x-small;
+}
+
+.pagination select{
+  font-size: 10px;
+  color: black;
+  border-radius: 0.8rem;
+  border: Solid 1px #632bb8;
+  cursor: pointer;
+}
+
+
+button.round {
+  background-color: #632bb8;
+  color: white;
+  border: none;
+  font-size: 12px;
+  box-shadow: 0 2px 4px darkslategray;
+  border-radius: 50%;
+  cursor: pointer;
+ transition: all 0.2s ease;
+}
+
+button.round:hover {
+  background-color: #632bb8;
+ }
+ 
+ button.round:active {
+  box-shadow: 0 0 2px darkslategray;
+  transform: translateY(2px);
+  border: none;
+ }
+
+ button.round:focus {
+  border: none;
+ }
+
+ button.round:disabled,
+button.round[disabled]{
+  background-color: #ccc;
+  box-shadow:none;
+  cursor: default;
+}

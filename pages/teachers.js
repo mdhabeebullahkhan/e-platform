@@ -6,37 +6,38 @@ import { getData } from '../utils/fetchData'
 import InfoModal from '../components/InfoModal/respModal'
 import ViewTeacher from './viewTeacher/[id]'
 
-const teachers = () => {
+const teachers = (props) => {
   const { state, dispatch } = useContext(DataContext)
   const { auth } = state
   const isAdmin = auth && auth.user && auth.user.role === 'admin'
   const [open, setOpen] = useState(false)
   const [id, setId] = useState('')
+  const { teachers } = props
 
-  const [teachers, setTeachers] = useState([]);
+  //const [teachers, setTeachers] = useState([]);
 
-  useEffect(() => {
-    getTeachersData();
-  }, [])
+  // useEffect(() => {
+  //   getTeachersData();
+  // }, [])
 
-  const getTeachersData = async () => {
-    await getData('teachers', auth.token)
-      .then(res => {
-        if (res.err) setTeachers([]);
-        else {
-          setTeachers(res.teachers);
-        }
-      })
-  }
+  // const getTeachersData = async () => {
+  //   await getData('teachers', auth.token)
+  //     .then(res => {
+  //       if (res.err) setTeachers([]);
+  //       else {
+  //         setTeachers(res.teachers);
+  //       }
+  //     })
+  // }
 
   const handleDeleteTeacher=(teacher)=>{
     dispatch({
       type: 'ADD_MODAL',
-      payload: [{
+      payload: {
         data: '', id: teacher._id,
         title: teacher.firstname + " " + teacher.middlename + " " + teacher.lastname,
         type: 'DELETE_TEACHER'
-      }]
+      }
     })
   }
 
@@ -98,5 +99,18 @@ const teachers = () => {
       </InfoModal>
     </div>
   )
+}
+
+export async function getServerSideProps (context, auth){
+  const {params} = context;
+  const profData =   await getData('teachers', auth)
+
+  let data ={}
+  if(!profData){console.log("Loading...")}else{data = profData}
+  return{
+    props:{
+      teachers: data.teachers
+    }
+  }
 }
 export default teachers

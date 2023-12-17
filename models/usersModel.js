@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
 
-const usersSchema = new mongoose.Schema({  
-    // name: {
-    //     type: String,
-    //     required: true
-    // },
+const usersSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true,
@@ -16,7 +16,7 @@ const usersSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        required: true
+        default: 'user'
     },
     root: {
         type: Boolean,

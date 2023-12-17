@@ -1,7 +1,7 @@
 import connectDB from '../../../utils/connectDB'
 import Classes from '../../../models/classesModel'
 import auth from '../../../middleware/auth'
-import { CONTACT_ADMIN_ERR_MSG, ERROR_401 } from '../../../utils/constants'
+import { CONTACT_ADMIN_ERR_MSG, ERROR_403 } from '../../../utils/constants'
 
 connectDB()
 

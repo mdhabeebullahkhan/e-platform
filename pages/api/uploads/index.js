@@ -1,7 +1,7 @@
 import nextConnect from 'next-connect';
 import auth from '../../../middleware/auth';
 import { cloud_uploads } from './cloudinary';
-import { upload } from "./multer";
+import { imgUpload } from "./multer";
 
 /*
     DELETE    - Unprotected
@@ -17,7 +17,7 @@ const apiRoute = nextConnect({
   },
 });
 
-apiRoute.use(upload.array('file'), async (req, res) => {
+apiRoute.use(imgUpload.array('file'), async (req, res) => {
   switch (req.method) {
     case 'POST': uploadImage(req, res);
       break;

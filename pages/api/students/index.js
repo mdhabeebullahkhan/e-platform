@@ -1,9 +1,7 @@
 import connectDB from '../../../utils/connectDB'
-import StudentModel from '../../../models/studentModel'
+import StudentModel from '../../../models/studentsModel'
 import UsersModel from '../../../models/usersModel'
-import auth from '../../../middleware/auth'
-import { CONTACT_ADMIN_ERR_MSG, ERROR_401 } from '../../../utils/constants'
-import nc from 'next-connect'
+import { CONTACT_ADMIN_ERR_MSG } from '../../../utils/constants'
 
 connectDB()
 
@@ -40,15 +38,15 @@ const createStudents = async (req, res) => {
     try {
 
         if (accountneededcheck && emailid !== 'null' && role === 'student') {
-            const newUser = new UsersModel({ email: emailid, password, role })     
+            const newUser = new UsersModel({ email: emailid, password, role })
             await newUser.save()
             const user_Id = await UsersModel.findOne({ email: emailid })
-            const userId = user_Id.id 
+            const userId = user_Id.id
             const newStudent = new StudentModel({ firstname, middlename, lastname, dateofbirth, gender, age, rollno, admissionno, birthmark, emailid, feestatus, fathername, fatheroccupation, fathermobilenumber, mothername, motheroccupation, mothermobilenumber, religion, cast, mothertongue, aadharno, branch, Class, section, houseno, city, State, country, pincode, accountneededcheck, userId })
             await newStudent.save()
         } else {
             const userId = null
-            const newStudent = new StudentModel({ firstname, middlename, lastname, dateofbirth, gender, age, rollno, admissionno, birthmark, emailid, feestatus, fathername, fatheroccupation, fathermobilenumber, mothername, motheroccupation, mothermobilenumber, religion, cast, mothertongue, aadharno, branch, Class, section, houseno, city, State, country, pincode, accountneededcheck, userId  })
+            const newStudent = new StudentModel({ firstname, middlename, lastname, dateofbirth, gender, age, rollno, admissionno, birthmark, emailid, feestatus, fathername, fatheroccupation, fathermobilenumber, mothername, motheroccupation, mothermobilenumber, religion, cast, mothertongue, aadharno, branch, Class, section, houseno, city, State, country, pincode, accountneededcheck, userId })
             await newStudent.save()
         }
         res.json({ msg: 'Student Added Success!' });
@@ -56,7 +54,6 @@ const createStudents = async (req, res) => {
     } catch (err) {
         console.error('Error occurred while getStudents: ' + err);
         return res.status(500).json({ err: CONTACT_ADMIN_ERR_MSG })
-
     }
 }
 

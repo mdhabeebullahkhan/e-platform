@@ -1,19 +1,23 @@
 import mongoose from 'mongoose'
 
-const teacherSchema = new mongoose.Schema({
-    firstname: {
+const staffSchema = new mongoose.Schema({
+    staffType:{
+        type:String,
+        required:true
+    },
+    firstName: {
         type: String,
         required: true
     },
-    middlename: {
+    middleName: {
         type: String,
         required: true
     },
-    lastname: {
+    lastName: {
         type: String,
         required: true
     },
-    dateofbirth: {
+    dob: {
         type: String,
         required: true,
     },
@@ -22,18 +26,18 @@ const teacherSchema = new mongoose.Schema({
         required: true,
     },
     age: {
-        type: String,
+        type: Number,
         required: true,
     }, 
-    maritalstatus: {
+    maritalStatus: {
+        type: Boolean,
+        required: true,
+    },
+    mobile: {
         type: String,
         required: true,
     },
-    contactnumber: {
-        type: String,
-        required: true,
-    },
-    emailid: {
+    emailId: {
         type: String,
         required: true,
     },        
@@ -41,27 +45,23 @@ const teacherSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    salary: {
-        type: String,
-        required: true,
-    },
     branch: {
         type: String,
         required: true,
     },
-    aadharno: {
+    aadharNo: {
         type: String,
         required: true,
     },
-    fathername: {
+    fatherName: {
         type: String,
         required: true,
     },
-    mothername: {
+    motherName: {
         type: String,
         required: true,
     },
-    houseno: {
+    address: {
         type: String,
         required: true,
     },
@@ -69,7 +69,7 @@ const teacherSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    State: {
+    state: {
         type: String,
         required: true,
     },
@@ -77,20 +77,21 @@ const teacherSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    pincode: {
+    pinCode: {
         type: String,
         required: true,
     },    
-    accountneededcheck: {
+    accountRequired: {
         type: Boolean,
     },
+    joiningDate:Date,
     userId: {
-        type: String,
+        type: mongoose.Types.ObjectId,
+        ref: "user"
     },
-
 }, {
     timestamps: true
 })
 
-let Dataset = mongoose.models.teacher || mongoose.model('teacher', teacherSchema)
+let Dataset = mongoose.models.staff || mongoose.model('staff', staffSchema)
 export default Dataset

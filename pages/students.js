@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useContext } from 'react'
-import Link from 'next/link'
 import { DataContext } from '../store/GlobalState'
 import { getData } from '../utils/fetchData'
-// import { students } from '../pages/api/students'
-
-
-import InfoModal from '../components/InfoModal/respModal'
-import ViewStudent from './viewStudent/[id]'
-import { forEach } from 'lodash'
+import MyTable from '../components/Table/MyTable'
+import { studentHeader } from '../components/StudentModule/studentHeader'
 
 const Students = () => {
   const { state, dispatch } = useContext(DataContext)
@@ -29,21 +24,39 @@ const Students = () => {
     await getData('students', auth.token)
       .then(res => {
         if (res.err) setStudents([]);
-        else {
-          setStudents(res.students);
-        }
+        else setStudents(res.students);
       })
   }
   const getViewStudent = (stud) => {
     setOpen(true)
     setId(stud._id)
   }
-
-
+  const columns = [
+    {
+      Header: 'Name',
+      accessor: 'name',
+      Filter: ({ column }) => <input {...column.getFilterProps} />,
+    },
+    {
+      Header: 'Age',
+      accessor: 'age',
+      Filter: ({ column }) => <input {...column.getFilterProps} />,
+    },
+    {
+      Header: 'City',
+      accessor: 'city',
+      Filter: ({ column }) => <input {...column.getFilterProps} />,
+    },
+  ];
 
   return (
     <div className="container">
-      <div className='app-header'><h2>Students Information</h2></div>
+      <h6>Students Information</h6>
+      {
+        students && (<MyTable columns={studentHeader} data={students} />)
+      }
+      
+{/*       
       {isAdmin && <Link href={`/create`} className="btn btn-success" style={{ float: 'right', margin: '0 0 1% 0' }}>Add New Student</Link>}
       <div style={{ display: 'flex' }}>
         <div><input type="text" name="studentName" className="form-control" placeholder='Search by student name' onChange={(e) => { setSearchByStudName(e.target.value) }} maxLength='25' required /></div>
@@ -85,11 +98,11 @@ const Students = () => {
                       <i className="fas fa-trash-alt text-danger ml-2 icon-hover" title="Remove" data-toggle="modal" data-target="#exampleModal"
                         onClick={() => dispatch({
                           type: 'ADD_MODAL',
-                          payload: [{
+                          payload: {
                             data: '', id: stud._id,
                             title: stud.firstname + " " + stud.middlename + " " + stud.lastname,
                             type: 'DELETE_STUDENT'
-                          }]
+                          }
                         })}></i>
                     </div>
                   </td>}
@@ -104,7 +117,7 @@ const Students = () => {
           <ViewStudent id={id} />
 
         </div>
-      </InfoModal>
+      </InfoModal> */}
     </div>
   )
 }

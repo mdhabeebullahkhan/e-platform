@@ -1,5 +1,5 @@
 import connectDB from '../../../utils/connectDB'
-import Users from '../../../models/userModel'
+import Users from '../../../models/usersModel'
 import Tokens from '../../../models/tokenModel'
 import bcrypt from 'bcrypt'
 import crypto from 'crypto'
@@ -25,7 +25,7 @@ const login = async (req, res) => {
         if (!user) return res.status(401).json({ err: 'Login failed; Invalid user name or password.' })
 
         const isMatch = await bcrypt.compare(password, user.password)
-        if (!isMatch) return res.status(401).json({ err: 'Login failed; Invalid user name or password.' })
+        if (!isMatch) return res.status(401).json({ err: 'Login failed; Invalid user name or password!' })
 
         const access_token = createAccessToken({ id: user._id })
 
